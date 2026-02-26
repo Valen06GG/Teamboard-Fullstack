@@ -1,15 +1,18 @@
-import { ConflictException, Injectable } from "@nestjs/common";
+import { ConflictException, Injectable, UnauthorizedException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Company } from "src/companies/companies.entity";
 import { UserRole, Users } from "src/users/users.entity";
 import { DataSource, Repository } from "typeorm";
 import { RegisterDto } from "./dto/register.dto";
 import * as bcrypt from 'bcrypt';
+import { JwtService } from "@nestjs/jwt";
+import { access } from "fs";
 
 @Injectable()
 export class AuthService {
     constructor(
         private dataSource: DataSource,
+        private jwtService: JwtService,
 
         @InjectRepository(Users)
         private userRepository: Repository<Users>,
@@ -52,5 +55,29 @@ export class AuthService {
                 message: 'User and Company created successfully',
             };
         });
+    }
+
+    async login(email: string, password: string) {
+        const user = await this.userRepository.findOne({
+            where: { email },
+            relations: ['company'],
+        });
+
+        if (!user) {
+            throw new UnauthorizedException('Invalid credentials');
+        }
+
+        const payload = {
+            sub: user.id,
+            email: user.email,
+            role: user.role,
+            companyId: user.company.id,
+        };
+
+        const token = this.jwtService.sign(payload);
+
+        return {
+            access_token: token,
+        };
     }
 }
