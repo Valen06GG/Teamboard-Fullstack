@@ -6,10 +6,12 @@ import { Users } from 'src/users/users.entity';
 import { Company } from 'src/companies/companies.entity';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.strategy';
+import { PassportModule } from '@nestjs/passport';
 
 @Module({
     imports: [
         TypeOrmModule.forFeature([Users, Company]),
+        PassportModule,
         JwtModule.register({
             secret: 'super_secret_key',
             signOptions: { expiresIn: '1d' },

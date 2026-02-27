@@ -20,11 +20,6 @@ import { JwtModule } from '@nestjs/jwt';
       useFactory: (configService: ConfigService) => 
         configService.get<TypeOrmModuleOptions>('typeorm')!,
     }),
-    // JwtModule.register({
-    //   global: true, 
-    //   signOptions: { expiresIn: "1h" },
-    //   secret: process.env.JWT_SECRET,
-    // }),
     CompaniesModule,
     UsersModule,
     TasksModule,
