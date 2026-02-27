@@ -1,29 +1,37 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { AuthModule } from 'src/auth/auth.module';
 import { CompaniesModule } from 'src/companies/companies.module';
 import { ProjectsModule } from 'src/projects/projects.module';
 import { TasksModule } from 'src/tasks/tasks.module';
 import { UsersModule } from 'src/users/users.module';
-
+import typeormConfig  from './config/typeorm';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: 'Valen06GG',
-      database: 'taskforge',
-      autoLoadEntities: true,
-      synchronize: true,
+    ConfigModule.forRoot({
+      isGlobal: true,
+      load: [typeormConfig],
     }),
+    TypeOrmModule.forRootAsync({
+      inject: [ConfigService],
+      useFactory: (configService: ConfigService) => 
+        configService.get<TypeOrmModuleOptions>('typeorm')!,
+    }),
+    // JwtModule.register({
+    //   global: true, 
+    //   signOptions: { expiresIn: "1h" },
+    //   secret: process.env.JWT_SECRET,
+    // }),
     CompaniesModule,
     UsersModule,
     TasksModule,
     ProjectsModule,
     AuthModule,
   ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}

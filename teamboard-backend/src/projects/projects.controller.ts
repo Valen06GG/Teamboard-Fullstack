@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { ProjectsService } from './projects.service';
+import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 
 @Controller('projects')
 @UseGuards(JwtAuthGuard)
@@ -10,13 +11,13 @@ export class ProjectsController {
   @Post()
   create(
     @Body() body: { name: string, description: string },
-    @Req() req,
+    @CurrentUser() user,
   ) {
-    return this.projectsService.create(body, req.user.companyId);
+    return this.projectsService.create(body, user.companyId);
   }
 
   @Get()
-  findAll(@Req() req) {
-    return this.projectsService.findAll(req.user.companyId);
+  findAll(@CurrentUser() user) {
+    return this.projectsService.findAll(user.companyId);
   }
 }
