@@ -29,3 +29,22 @@ export async function getTasks(token: string) {
 
     return response.json();
 }
+
+export async function completedTask(taskId: string, token: string) {
+    const response = await fetch(`http://localhost:3001/tasks/${taskId}/status`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+            completed: true,
+        })
+      },
+    );
+
+    if (!response.ok) {
+        throw new Error('No se pudo completar las task');
+    }
+    return response.json();
+}

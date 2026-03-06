@@ -25,33 +25,48 @@ export default function LoginPage() {
     };
 
     return (
-        <div className="flex h-screen items-center justify-center">
-          <form
-            onSubmit={handleLogin}
-            className="flex flex-col gap-4 w-80 p-6 border rounded-xl"
-          >
-            <h1 className="text-xl font-bold text-center">Login</h1>
-    
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-950 via-gray-900 to-black">
+
+      <div className="w-full max-w-md bg-gray-900 border border-gray-800 rounded-2xl shadow-2xl p-8">
+
+        <h1 className="text-3xl font-bold text-center text-white mb-8">
+          TeamBoard
+        </h1>
+
+        <form onSubmit={handleLogin} className="space-y-5">
+
+          <div>
+            <label className="text-sm text-gray-400">Email</label>
             <input
               type="email"
-              placeholder="Email"
-              className="border p-2 rounded"
+              placeholder="email@empresa.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              className="w-full mt-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             />
-    
+          </div>
+
+          <div>
+            <label className="text-sm text-gray-400">Password</label>
             <input
               type="password"
-              placeholder="Password"
-              className="border p-2 rounded"
+              placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              className="w-full mt-1 px-4 py-2 bg-gray-800 border border-gray-700 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             />
-    
-            <button className="bg-black text-white p-2 rounded cursor-pointer">
-              Ingresar
-            </button>
-          </form>
-        </div>
-    )
+          </div>
+
+          <button
+            type="submit"
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg transition cursor-pointer"
+          >
+            Ingresar
+          </button>
+
+        </form>
+
+      </div>
+    </div>
+  );
 }
