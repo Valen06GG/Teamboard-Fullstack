@@ -48,3 +48,48 @@ export async function completedTask(taskId: string, token: string) {
     }
     return response.json();
 }
+
+export async function createTask(data: any, token: string) {
+    const response = await fetch('http://localhost:3001/tasks', {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+        throw new Error('No se pudo crear la task');
+    }
+
+    return response.json();
+}
+
+export async function getProjects(token: string) {
+    const response = await fetch('http://localhost:3001/projects', {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('No se pudieron cargar los proyectos');
+    }
+
+    return response.json();
+}
+
+export async function getUsers(token: string) {
+  const response = await fetch("http://localhost:3001/users", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('No se pudieron cargar los usuarios');
+  }
+
+  return response.json();
+}
