@@ -1,10 +1,11 @@
-import { Body, Controller, Post, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { JwtAuthGuard } from 'src/common/guards/jwt-auth.guard';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { UsersService } from './users.service';
 import { Roles } from 'src/common/decorators/roles.decorator';
 import { UserRole } from './users.entity';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
+import { AuthGuard } from '@nestjs/passport';
 
 @Controller('users')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -19,4 +20,12 @@ export class UsersController {
   ) {
     return this.usersService.createMember(body, user);
   }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get()
+  findAll(@Req() req) {
+    const companyId = req.user.companyId
+    return this.usersService.findAll(companyId);
+  }
+  
 }

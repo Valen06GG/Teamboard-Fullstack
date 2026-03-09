@@ -36,4 +36,13 @@ export class UsersService {
 
         return this.usersRepository.save(newUser);
     }
+
+    async findAll(companyId: string) {
+        return this.usersRepository.find({
+            where: {
+                company: { id: companyId },
+            },
+        });
+    }
 }
+ 

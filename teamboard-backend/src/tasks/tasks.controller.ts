@@ -5,13 +5,14 @@ import { CreateTaskDto } from './dto/create-task.dto';
 import { UpdateTaskStatusDto } from './dto/update-task-status.dto';
 import { RolesGuard } from 'src/common/guards/roles.guard';
 import { Roles } from 'src/common/decorators/roles.decorator';
+import { UserRole } from 'src/users/users.entity';
 
 @Controller('tasks')
 export class TasksController {
     constructor(private readonly tasksService: TasksService) {}
 
     @UseGuards(AuthGuard('jwt'), RolesGuard)
-    @Roles('admin')
+    @Roles(UserRole.ADMIN)
     @Post()
     create(@Body() dto: CreateTaskDto, @Request() req) {
         return this.tasksService.create(dto, req.user);
