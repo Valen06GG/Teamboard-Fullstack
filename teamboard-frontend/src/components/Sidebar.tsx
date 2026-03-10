@@ -3,15 +3,14 @@
 import { useRouter } from "next/navigation"
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
-import { usePathname } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 
 export default function Sidebar() {
     const router = useRouter();
     const { logout } = useAuth()
-    const pathname = usePathname();
     const [role, setRole] = useState<string | null>(null);
+    const [logged, setIsLogged] = useState(false);
 
     useEffect(() => {
       const token = localStorage.getItem('token');
@@ -20,6 +19,7 @@ export default function Sidebar() {
 
       const decode: any = jwtDecode(token);
       setRole(decode.role);
+      setIsLogged(true)
     }, []);
 
     return (
@@ -27,6 +27,14 @@ export default function Sidebar() {
             <h1 className="text-2x1 font-bold mb-10">TeamBorad</h1>
 
             <nav className="flex flex-col">
+
+                <Link
+                  href='/'
+                  className="hover:bg-gray-800 p-1 rounded"
+                >
+                  Home
+                </Link>
+
                 <Link
                 href='/dashboard'
                 className="hover:bg-gray-800 p-1 rounded"
@@ -49,6 +57,24 @@ export default function Sidebar() {
                   Admin
                 </Link>
                 )}
+
+                {!setIsLogged && (
+          <>
+            <Link
+              href="/login"
+              className="text-gray-300 hover:text-white transition"
+            >
+              Login
+            </Link>
+
+            <Link
+              href="/register"
+              className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition"
+            >
+              Get Started
+            </Link>
+          </>
+        )}  
             </nav>
         </aside>
     )

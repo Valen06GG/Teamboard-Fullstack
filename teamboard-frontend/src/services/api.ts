@@ -106,4 +106,4 @@ export async function getProjectsTasks(projectId: string, token: string) {
     }
 
     return response.json();
-}
+}   

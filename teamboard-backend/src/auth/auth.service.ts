@@ -71,6 +71,7 @@ export class AuthService {
             sub: user.id,
             email: user.email,
             companyId: user.company.id,
+            companyName: user.company.name,
             role: user.role,
         };
 

@@ -7,21 +7,30 @@ import { useEffect, useState } from "react";
 import { completedTask } from "@/services/api";
 import AppLayout from "@/components/AppLayout";
 import { motion } from "framer-motion";
+import { jwtDecode } from "jwt-decode";
 
 export default function Dashboard() {
     const { token, logout } = useAuth();
     const router = useRouter();
     const [tasks, setTasks] = useState<any[]>([]);
+    const [companyName, setCompanyName] = useState<string | null>(null);
 
     useEffect(() => {
+      const token = localStorage.getItem('token')
+
         if (!token) {
-            router.push('/login');
+            return;
         } else {
             getTasks(token)
               .then(setTasks)
               .catch(() => alert('Error cargando tareas'));
         }
-    }, [token, router]);
+
+        const decode: any = jwtDecode(token);
+        console.log(decode)
+
+        setCompanyName(decode.companyName);
+    }, []);
 
     if (!token) return null;
 
@@ -43,12 +52,12 @@ export default function Dashboard() {
           <div className="max-w-5xl">
     
             <div className="flex justify-between items-center mb-10">
-              <h1 className="text-3xl font-bold">TeamBoard Dashboard</h1>
+              <h1 className="text-3xl font-bold">{companyName ? `${companyName} Dashboard`: 'Dashboard'}</h1>
     
               <button
                 onClick={() => {
                   logout();
-                  router.push("/login");
+                  window.location.href = '/login'
                 }}
                 className="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition cursor-pointer"
               >
