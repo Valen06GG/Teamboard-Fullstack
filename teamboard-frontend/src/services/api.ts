@@ -93,3 +93,17 @@ export async function getUsers(token: string) {
 
   return response.json();
 }
+
+export async function getProjectsTasks(projectId: string, token: string) {
+    const response = await fetch(`http://localhost:3001/projects/${projectId}/tasks`, {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error('Error cargando tasks');
+    }
+
+    return response.json();
+}

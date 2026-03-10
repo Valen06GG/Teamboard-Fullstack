@@ -3,12 +3,16 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Project } from './projects.entity';
 import { Repository } from 'typeorm';
 import { Company } from 'src/companies/companies.entity';
+import { Task } from 'src/tasks/tasks.entity';
 
 @Injectable()
 export class ProjectsService {
     constructor(
         @InjectRepository(Project)
         private projectsRepository: Repository<Project>,
+
+        @InjectRepository(Task)
+        private tasksRepository: Repository<Task>,
     ) {}
 
   async create(data: any, companyId: string) {
@@ -25,6 +29,16 @@ export class ProjectsService {
         where: {
             company: { id: companyId },
         },
+    });
+  }
+
+  async getProjectTasks(projectId: string, user: any) {
+    return this.tasksRepository.find({
+      where: {
+        project: { id: projectId },
+        company: { id: user.companyId }
+      },
+      relations: ['project', 'assignedTo'],
     });
   }
 }

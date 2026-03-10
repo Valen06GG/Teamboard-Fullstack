@@ -1,5 +1,6 @@
 'use client'
 
+import AppLayout from "@/components/AppLayout";
 import { createTask, getProjects, getUsers } from "@/services/api";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
@@ -73,10 +74,9 @@ export default function AdminPage() {
     }
 
     return (
+      <AppLayout>
         <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white flex items-center justify-center">
-
           <div className="bg-gray-900 border border-gray-800 p-8 rounded-xl w-[420px]">
-
             <h1 className="text-2xl font-bold mb-6 text-center">
               Crear Task
             </h1>
@@ -89,7 +89,7 @@ export default function AdminPage() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
                 className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2"
-              />
+                />
     
               <select
                 value={projectId}
@@ -110,7 +110,7 @@ export default function AdminPage() {
                 value={assignedToId}
                 onChange={(e) => setAssignedToId(e.target.value)}
                 className="w-full bg-gray-800 border border-gray-700 rounded-lg px-4 py-2"
-              >
+                >
                 <option value="">Asignar usuario</option>
               
                 {users.map((user) => (
@@ -123,14 +123,13 @@ export default function AdminPage() {
     
               <button
                 className="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded-lg transition"
-              >
+                >
                 Crear Task
               </button>
     
             </form>
-    
           </div>
-
         </div>
+      </AppLayout>
     )
 }
