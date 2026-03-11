@@ -106,4 +106,38 @@ export async function getProjectsTasks(projectId: string, token: string) {
     }
 
     return response.json();
-}   
+}
+
+export async function createUsers(token: string, userData: any) {
+  const response = await fetch("http://localhost:3001/users", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(userData)
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al crear al usuario');
+  }
+
+  return response.json();
+}
+
+export async function createProject(token: string, data: string) {
+  const response = await fetch("http://localhost:3001/projects", {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify(data)
+  });
+
+  if (!response.ok) {
+    throw new Error('Error al crear el proyecto');
+  }
+
+  return response.json();
+}

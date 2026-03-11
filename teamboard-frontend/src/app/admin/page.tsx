@@ -1,12 +1,14 @@
 'use client'
 
 import AppLayout from "@/components/AppLayout";
+import CreateUserForm from "@/components/CreateUserForm";
 import { createTask, getProjects, getUsers } from "@/services/api";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function AdminPage() {
+
     const [title, setTitle] = useState("");
     const [projectId, setProjectId] = useState("");
     const [assignedToId, setAssignedToId] = useState("");
@@ -128,6 +130,11 @@ export default function AdminPage() {
               </button>
     
             </form>
+
+            <p className="pt-5">
+              <a href="/createuser">Crea o invita un usuario a tu empresa</a>
+            </p>
+
           </div>
         </div>
       </AppLayout>

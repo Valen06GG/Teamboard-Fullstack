@@ -5,6 +5,7 @@ import { useAuth } from "@/context/AuthContext"
 import { getProjects } from "@/services/api";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import CreateProjectForm from "@/components/CreateProjectForm";
 
 export default function ProjectsPage() {
     const { token } = useAuth();
@@ -24,7 +25,9 @@ export default function ProjectsPage() {
                 Projects
             </h1>
 
-            <div className="grid grid-cols-3 gap-6">
+            <CreateProjectForm />
+
+            <div className="grid grid-cols-3 gap-6 pt-6">
                 {projects?.map((project) => (
                     <Link key={project.id} href={`/projects/${project.id}`}>
                       <div className="bg-gray-900 border border-gray-800 p-6 rounded-xl hover:border-blue-500 transition cursor-pointer">

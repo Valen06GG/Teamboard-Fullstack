@@ -49,6 +49,13 @@ export default function Sidebar() {
                   Projects
                 </Link>
 
+                <Link
+                  href='/team'
+                  className="hover:bg-gray-800 p-1 rounded"
+                >
+                  Team
+                </Link>
+
               {role === 'admin' && (
                 <Link
                 href='/admin'
