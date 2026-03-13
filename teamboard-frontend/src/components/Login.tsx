@@ -48,9 +48,9 @@ export default function Login() {
           </div>
 
           <div>
-            <label className="text-sm text-gray-400">Password</label>
+            <label className="text-sm text-gray-400">Contraseña</label>
             <input
-              type="password"
+              type="contraseña"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -68,12 +68,12 @@ export default function Login() {
         </form>
 
         <p className="text-gray-400 text-sm mt-6 text-center">
-          Don't you have an account yet?{" "}
+          ¿Aún no tienes una cuenta?{" "}
           <Link
             href="/register"
             className="text-blue-500 hover:text-blue-400"
           >
-            Register
+            Registro
           </Link>
         </p>
 

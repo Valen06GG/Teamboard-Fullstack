@@ -10,7 +10,7 @@ export async function loginRequest(email: string, password: string) {
     });
 
     if (!response.ok) {
-        throw new Error('Credentials are incorrect');
+        throw new Error('Las credenciales son incorrectas');
     }
 
     return response.json();
@@ -24,7 +24,7 @@ export async function getTasks(token: string) {
     });
 
     if (!response.ok) {
-        throw new Error('Error retrieving tasks');
+        throw new Error('Error al cargar las tasks');
     }
 
     return response.json();
@@ -44,7 +44,7 @@ export async function completedTask(taskId: string, token: string) {
     );
 
     if (!response.ok) {
-        throw new Error('No se pudo completar las task');
+        throw new Error('No se pudo completar la task');
     }
     return response.json();
 }

@@ -22,7 +22,7 @@ export default function ProjectsPage() {
     return (
         <AppLayout>
             <h1 className="text-3x1 font-bold text-white mb-10">
-                Projects
+                Proyectos
             </h1>
 
             <CreateProjectForm />

@@ -21,7 +21,7 @@ export class UsersService {
         });
 
         if (existingUser) {
-            throw new ConflictException('Email already exists');
+            throw new ConflictException('El correo electrónico ya existe');
         }
 
         const hashedPassword = await bcrypt.hash(data.password, 10);

@@ -10,12 +10,12 @@ export default function Home() {
           <section className="flex flex-col items-center text-center mt-24 px-6">
     
             <h2 className="text-6xl font-bold mb-6">
-              Manage your team work
+              Gestiona el trabajo de tu equipo
             </h2>
     
             <p className="text-gray-400 text-lg max-w-2xl mb-10">
-              Organize projects, assign tasks and track progress with TeamBoard.
-              Built for modern teams who want speed and simplicity.
+              Organiza proyectos, asigna tareas y realiza un seguimiento del progreso con TeamBoard.
+              Diseñado para equipos modernos que buscan rapidez y sencillez.
             </p>
     
             <div className="flex gap-6">
@@ -24,7 +24,7 @@ export default function Home() {
                 href="/register"
                 className="bg-blue-600 hover:bg-blue-700 px-8 py-4 rounded-xl text-lg transition"
               >
-                Start for free
+                Registro
               </Link>
     
               <Link
@@ -42,31 +42,32 @@ export default function Home() {
     
             <div className="bg-gray-900 border border-gray-800 p-8 rounded-xl">
               <h3 className="text-xl font-semibold mb-3">
-                Project Management
+                Gestión de proyectos
               </h3>
     
               <p className="text-gray-400">
-                Organize your company projects in a simple and efficient way.
+                Organiza los proyectos de tu empresa de forma sencilla y eficiente.
               </p>
             </div>
     
             <div className="bg-gray-900 border border-gray-800 p-8 rounded-xl">
               <h3 className="text-xl font-semibold mb-3">
-                Task Assignment
+                Asignación de tareas
               </h3>
     
               <p className="text-gray-400">
-                Assign tasks to your team members and track progress easily.
+                Asigna tareas a los miembros de tu equipo y realiza un seguimiento del progreso fácilmente.
               </p>
             </div>
     
             <div className="bg-gray-900 border border-gray-800 p-8 rounded-xl">
               <h3 className="text-xl font-semibold mb-3">
-                Team Collaboration
+                Colaboración en equipo
               </h3>
     
               <p className="text-gray-400">
-                Keep everyone aligned and focused on the same goals.
+                Mantengan a todos alineados y enfocados en los mismos objetivos.
+
               </p>
             </div>
     

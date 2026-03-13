@@ -48,7 +48,7 @@ export default function CreateUserForm() {
 
       await createUsers(token, form);
 
-      alert('User created successfully');
+      alert('Usuario creado con éxito');
 
       setForm({
         name: '',
@@ -58,7 +58,7 @@ export default function CreateUserForm() {
       });
 
     } catch (error) {
-      alert('Error creating user');
+      alert('Error al crear usuario');
     }
   };
 
@@ -71,12 +71,12 @@ export default function CreateUserForm() {
         >
     
           <h2 className="text-xl font-semibold mb-4">
-            Create User
+            Crear usuario
           </h2>
     
           <input
             type="text"
-            placeholder="Name"
+            placeholder="Nombre"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
             className="w-full mb-3 p-2 rounded bg-gray-800 border border-gray-700"
@@ -92,7 +92,7 @@ export default function CreateUserForm() {
     
           <input
             type="password"
-            placeholder="Password"
+            placeholder="Contraseña"
             value={form.password}
             onChange={(e) => setForm({ ...form, password: e.target.value })}
             className="w-full mb-3 p-2 rounded bg-gray-800 border border-gray-700"
@@ -102,7 +102,7 @@ export default function CreateUserForm() {
             type="submit"
             className="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded-lg"
           >
-            Create User
+            Crear usuario
           </button>
         </form>
       </div>

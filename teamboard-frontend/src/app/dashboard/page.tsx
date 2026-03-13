@@ -68,19 +68,19 @@ export default function Dashboard() {
             <div className="grid grid-cols-3 gap-6 mb-10">
     
               <div className="bg-gray-900 border border-gray-800 p-6 rounded-xl">
-                <p className="text-gray-400 text-sm">Total Tasks</p>
+                <p className="text-gray-400 text-sm">Tareas totales</p>
                 <h2 className="text-2xl font-bold">{tasks.length}</h2>
               </div>
     
               <div className="bg-gray-900 border border-gray-800 p-6 rounded-xl">
-                <p className="text-gray-400 text-sm">Completed</p>
+                <p className="text-gray-400 text-sm">Completados</p>
                 <h2 className="text-2xl font-bold">
                   {tasks.filter((t) => t.completed).length}
                 </h2>
               </div>
     
               <div className="bg-gray-900 border border-gray-800 p-6 rounded-xl">
-                <p className="text-gray-400 text-sm">Pending</p>
+                <p className="text-gray-400 text-sm">Pendientes</p>
                 <h2 className="text-2xl font-bold">
                   {tasks.filter((t) => !t.completed).length}
                 </h2>
@@ -115,14 +115,14 @@ export default function Dashboard() {
                       transition={{ duration: 0.3 }}
                       className="bg-green-600/20 text-green-400 px-3 py-1 rounded-lg text-sm"
                       >
-                        Completed
+                        Completado
                       </motion.span>
                     ) : (
                       <button
                         onClick={() => handleCompleted(task.id)}
                         className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg text-sm transition cursor-pointer"
                       >
-                        Mark completed
+                        Marcar completado
                       </button>
                     )}
     

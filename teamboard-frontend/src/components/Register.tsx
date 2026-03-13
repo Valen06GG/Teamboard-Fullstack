@@ -38,7 +38,7 @@ export default function Register() {
             })
 
             if (!res.ok) {
-                throw new Error('Register failed')
+                throw new Error('Registro fallido')
             }
 
             router.push('/login');
@@ -46,7 +46,7 @@ export default function Register() {
 
         } catch (error) {
             console.error(error);
-            alert('Error creating account');
+            alert('Error al crear cuenta');
         } finally {
             setLoading(false)
         }
@@ -58,7 +58,7 @@ export default function Register() {
       <div className="w-full max-w-md bg-gray-900 border border-gray-800 rounded-xl p-8">
 
         <h1 className="text-2xl font-bold mb-6 text-center">
-          Create your account
+          Crea tu cuenta
         </h1>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -66,7 +66,7 @@ export default function Register() {
           <input
             type="text"
             name="name"
-            placeholder="Full name"
+            placeholder="Nombre completo"
             value={form.name}
             onChange={handleChange}
             required
@@ -86,7 +86,7 @@ export default function Register() {
           <input
             type="password"
             name="password"
-            placeholder="Password"
+            placeholder="Contraseña"
             value={form.password}
             onChange={handleChange}
             required
@@ -96,7 +96,7 @@ export default function Register() {
           <input
             type="text"
             name="companyName"
-            placeholder="Company name"
+            placeholder="Nombre de empresa"
             value={form.companyName}
             onChange={handleChange}
             required
@@ -108,13 +108,13 @@ export default function Register() {
             disabled={loading}
             className="bg-blue-600 hover:bg-blue-700 transition rounded-lg p-3 font-semibold mt-2"
           >
-            {loading ? "Creating account..." : "Create account"}
+            {loading ? "Creando cuenta..." : "Crear una cuenta"}
           </button>
 
         </form>
 
         <p className="text-gray-400 text-sm mt-6 text-center">
-          Already have an account?{" "}
+          ¿Ya tienes una cuenta?{" "}
           <Link
             href="/login"
             className="text-blue-500 hover:text-blue-400"

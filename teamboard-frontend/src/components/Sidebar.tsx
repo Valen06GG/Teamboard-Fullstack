@@ -32,7 +32,7 @@ export default function Sidebar() {
                   href='/'
                   className="hover:bg-gray-800 p-1 rounded"
                 >
-                  Home
+                  Inicio
                 </Link>
 
                 <Link
@@ -46,14 +46,14 @@ export default function Sidebar() {
                 href='/projects'
                 className="hover:bg-gray-800 p-1 rounded"
                 >
-                  Projects
+                  Proyectos
                 </Link>
 
                 <Link
                   href='/team'
                   className="hover:bg-gray-800 p-1 rounded"
                 >
-                  Team
+                  Equipo
                 </Link>
 
               {role === 'admin' && (
@@ -78,7 +78,7 @@ export default function Sidebar() {
               href="/register"
               className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition"
             >
-              Get Started
+              Registro
             </Link>
           </>
         )}  

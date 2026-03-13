@@ -23,7 +23,7 @@ export default function ProjectPage() {
     return (
         <AppLayout>
             <h1 className="text-3x1 font-blod text-white mb-10">
-                Project Tasks
+                Tareas del proyecto
             </h1>
 
             <div className="grid gap-4">
@@ -39,11 +39,11 @@ export default function ProjectPage() {
                     </div>
                       {task.completed ? (
                         <span className="text-green-400 text-sm">
-                          Completed
+                          Completado
                         </span>
                       ) : (
                       <span className="text-yellow-400 text-sm">
-                        Pending
+                        Pendiente
                       </span>
                     )}
                   </div>

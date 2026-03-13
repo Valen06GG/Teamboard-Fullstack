@@ -17,21 +17,15 @@ export class TasksService {
     ) {}
 
     async create(dto: CreateTaskDto, user: any) {
-        console.log('---- DEBUG CREATE TASK ----');
-        console.log('PROJECT ID:', dto.projectId);
-        console.log('USER COMPANY ID:', user.companyId);
-        console.log('USER ROLE:', user.role);
-        console.log('USER ID (sub):', user.sub);
       const project = await this.projectRepository.findOne({
         where: {
             id: dto.projectId,
             company: { id: user.companyId },
         },
       });
-      console.log('PROJECT FOUND FULL:', project);
 
       if (!project) {
-        throw new ForbiddenException('Project not found in your company');
+        throw new ForbiddenException('Proyecto no encontrado en su empresa');
       }
 
       let assignedUserId: string;
@@ -80,11 +74,11 @@ export class TasksService {
         });
 
         if (!task) {
-          throw new ForbiddenException('Task not found in your company');
+          throw new ForbiddenException('Tarea no encontrada en su empresa');
         }
 
         if (task.assignedTo.id !== user.sub) {
-          throw new ForbiddenException('You are not allowed to modify this task');
+          throw new ForbiddenException('No tienes permiso para modificar esta tarea.');
         }
 
         task.completed = dot.completed;

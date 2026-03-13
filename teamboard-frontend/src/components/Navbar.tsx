@@ -37,7 +37,7 @@ export default function HomeNavbar() {
             href="/"
             className="text-gray-300 hover:text-white transition"
           >
-            Home
+            Inicio
           </Link>
 
         {isLogged && (
@@ -54,7 +54,7 @@ export default function HomeNavbar() {
             href="/projects"
             className="text-gray-300 hover:text-white transition"
           >
-            Projects
+            Proyectos
           </Link>
         )}
 
@@ -80,7 +80,7 @@ export default function HomeNavbar() {
               href="/register"
               className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg transition"
             >
-              Get Started
+              Registro
             </Link>
           </>
         )}

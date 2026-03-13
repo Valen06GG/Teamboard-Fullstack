@@ -17,7 +17,7 @@ export default function TeamPage() {
 
     getUsers(token)
       .then(setUsers)
-      .catch(() => alert("Error loading users"));
+      .catch(() => alert("Error al cargar usuarios"));
 
     const decoded: any = jwtDecode(token);
     setRole(decoded.role);
@@ -34,7 +34,7 @@ export default function TeamPage() {
         <div className="flex justify-between items-center mb-8">
 
           <h1 className="text-3xl font-bold">
-            Team Members
+            Miembros del equipo
           </h1>
 
           {role === 'admin' && (
@@ -42,7 +42,7 @@ export default function TeamPage() {
               href="/createuser"
               className="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded-lg"
             >
-              + Add User
+              + Agregar usuario
             </Link>
           )}
 

@@ -1,7 +1,6 @@
 'use client'
 
 import AppLayout from "@/components/AppLayout";
-import CreateUserForm from "@/components/CreateUserForm";
 import { createTask, getProjects, getUsers } from "@/services/api";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";

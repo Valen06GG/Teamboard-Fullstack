@@ -63,7 +63,7 @@ export default function CreateProjectForm() {
 
             <input 
             type="text" 
-            placeholder="Project name"
+            placeholder="Nombre del proyecto"
             value={name}
             onChange={(e) => setName(e.target.value)}
             className="w-full mb-4 p-2 rounded bg-gray-800 border border-gray-700"
@@ -71,7 +71,7 @@ export default function CreateProjectForm() {
 
             <input 
             type="text" 
-            placeholder="Description"
+            placeholder="Descripcion"
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
             className="w-full mb-4 p-2 rounded bg-gray-800 border border-gray-700"
