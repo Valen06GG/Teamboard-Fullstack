@@ -2,15 +2,16 @@
 
 import AppLayout from "@/components/AppLayout";
 import { useAuth } from "@/context/AuthContext"
-import { getUsers } from "@/services/api";
+import { deleteUser, getUsers } from "@/services/api";
 import { jwtDecode } from "jwt-decode";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useId, useState } from "react";
 
 export default function TeamPage() {
     const { token } = useAuth();
     const [users, setUsers] = useState<any[]>([]);
     const [role, setRole] = useState<string | null>(null);
+    const [authorized, setAuthorized] = useState(false);
 
     useEffect(() => {
        if (!token) return;
@@ -25,6 +26,30 @@ export default function TeamPage() {
     }, [token]);
 
     if (!token) return null;
+
+    const handleDelete = async (userId: string) => {
+        if (!token) return;
+
+        const decode: any = jwtDecode(token);
+    
+        if (decode.role !== 'admin') {
+                return;
+        }
+    
+        setAuthorized(true);
+
+        const confirmDelete = confirm('¿Eliminar usuario?');
+
+        if (!confirmDelete) return
+
+        try {
+          await deleteUser(token, userId);
+
+          setUsers(users.filter((u) => u.id !== userId));
+        } catch (error) {
+          alert('Error eliminando usuario');
+        }
+    }
 
     return (
     <AppLayout>
@@ -67,6 +92,13 @@ export default function TeamPage() {
                   {user.email}
                 </p>
 
+              <button
+                onClick={() => handleDelete(user.id)}
+                className="bg-red-600 hover:bg-red-700 text-white text-sm px-3 mt-5 py-1 rounded cursor-pointer"
+              >
+                Eliminar
+              </button>
+              
               </div>
 
               <span
@@ -78,6 +110,7 @@ export default function TeamPage() {
               >
                 {user.role}
               </span>
+
 
             </div>
 

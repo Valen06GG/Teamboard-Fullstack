@@ -125,7 +125,7 @@ export async function createUsers(token: string, userData: any) {
   return response.json();
 }
 
-export async function createProject(token: string, data: string) {
+export async function createProject(token: string, data: { name: string, description: string }) {
   const response = await fetch("http://localhost:3001/projects", {
     method: 'POST',
     headers: {
@@ -141,3 +141,34 @@ export async function createProject(token: string, data: string) {
 
   return response.json();
 }
+
+export async function deleteUser(token: string, userId: string) {
+    const res = await fetch(`http://localhost:3001/users/${userId}`, {
+        method: 'DELETE',
+        headers: {
+            Authorization: `Bearer ${token}`
+        },
+    });
+
+    if (!res) {
+        throw new Error('Error eliminando usuario');
+    }
+
+    return res.json();
+}
+
+export async function register(data: {name: string, email: string, password: string, companyName: string;}) {
+  const res = await fetch("http://localhost:3001/auth/register", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    throw new Error("Error al registrar usuario");
+  }
+
+  return res.json();
+};

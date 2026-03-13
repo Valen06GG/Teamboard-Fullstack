@@ -29,7 +29,7 @@ export class AuthService {
         });
 
         if (existingUser) {
-            throw new ConflictException('Email already in use');
+            throw new ConflictException('Correo electrónico ya en uso');
         }
 
         const hashedPassword = await bcrypt.hash(password, 10);
@@ -52,7 +52,7 @@ export class AuthService {
             await manager.save(user);
 
             return {
-                message: 'User and Company created successfully',
+                message: 'Usuario y empresa creados con éxito',
             };
         });
     }
@@ -64,7 +64,7 @@ export class AuthService {
         });
 
         if (!user) {
-            throw new UnauthorizedException('Invalid credentials');
+            throw new UnauthorizedException('Credenciales no válidas');
         }
 
         const payload = {

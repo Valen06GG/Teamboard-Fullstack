@@ -8,11 +8,12 @@ export default function CreateProjectForm() {
     const { token } = useAuth();
     const router = useRouter();
     const [name, setName] = useState('');
+    const [description, setDescription] = useState('');
     const [authorized, setAuthorized] = useState(false);
-    const [form, setForm] = useState({
-        name: "",
-        description: "",
-    });
+    const [errors, setErrors] = useState({
+        name: '',
+        description: ''
+    })
 
     useEffect(() => {
             const token = localStorage.getItem('token');
@@ -36,21 +37,54 @@ export default function CreateProjectForm() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
+        if (!validate()) return;
+
         if (!token) return;
 
         try {
-            await createProject(token, form);
+            await createProject(token, {
+                name,
+                description
+            });
 
             alert('Proyecto creado');
 
-            setForm({
-                name: '',
-                description: ''
-            });
+            setName('');
+            setDescription('');
         } catch (error) {
             alert('Error al crear el proyecto');
         }
     };
+    
+
+    const validate = () => {
+        let newErrors = {
+            name: '',
+            description: ''
+        };
+
+        let isValid = true;
+
+        if (!name.trim()) {
+            newErrors.name = 'El nombre del proyecto es obligatorio';
+            isValid = false;
+        } else if (name.length < 3) {
+            newErrors.name = 'El nombre debe tener al menos 3 caracteres';
+            isValid = false;
+        }
+
+        if (!description.trim()) {
+            newErrors.description = "La descripción es obligatoria";
+            isValid = false;
+        } else if (description.length < 5) {
+            newErrors.description = "La descripción debe tener al menos 5 caracteres";
+            isValid = false;
+        }
+
+         setErrors(newErrors);
+
+        return isValid;
+    }
 
     return (
         <form 
@@ -69,13 +103,21 @@ export default function CreateProjectForm() {
             className="w-full mb-4 p-2 rounded bg-gray-800 border border-gray-700"
             />
 
+            {errors.name && (
+                <p className="text-red-400 text-sm mb-2">{errors.name}</p>
+            )}
+
             <input 
             type="text" 
             placeholder="Descripcion"
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            value={description}
+            onChange={(e) => setDescription(e.target.value )}
             className="w-full mb-4 p-2 rounded bg-gray-800 border border-gray-700"
             />
+
+            {errors.description && (
+                <p className="text-red-400 text-sm mb-2">{errors.description}</p>
+            )}
 
             <button
             type="submit"

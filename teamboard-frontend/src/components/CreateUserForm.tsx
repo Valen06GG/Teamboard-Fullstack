@@ -12,11 +12,13 @@ export default function CreateUserForm() {
   const { token } = useAuth();
 
   const [authorized, setAuthorized] = useState(false);
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    password: '',
-    role: 'member'
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({
+  name: "",
+  email: "",
+  password: "",
   });
 
   useEffect(() => {
@@ -39,28 +41,67 @@ export default function CreateUserForm() {
 
   if (!authorized) return null;
 
+  const validate = () => {
+      let newErrors = {
+        name: "",
+        email: "",
+        password: "",
+      };
+    
+      let isValid = true;
+    
+      if (!name.trim()) {
+        newErrors.name = "El nombre es obligatorio";
+        isValid = false;
+      }
+    
+      if (!email.trim()) {
+        newErrors.email = "El email es obligatorio";
+        isValid = false;
+      } else if (!/\S+@\S+\.\S+/.test(email)) {
+        newErrors.email = "Email inválido";
+        isValid = false;
+      }
+    
+      if (!password.trim()) {
+        newErrors.password = "La contraseña es obligatoria";
+        isValid = false;
+      } else if (password.length < 6) {
+        newErrors.password = "La contraseña debe tener al menos 6 caracteres";
+        isValid = false;
+      }
+    
+      setErrors(newErrors);
+    
+      return isValid;
+  };
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+
+    if (!validate()) return; 
 
     if (!token) return;
 
     try {
 
-      await createUsers(token, form);
+      await createUsers(token, {
+        name,
+        email,
+        password,
+      });
 
       alert('Usuario creado con éxito');
 
-      setForm({
-        name: '',
-        email: '',
-        password: '',
-        role: 'member'
-      });
+      setName('');
+      setEmail('');
+      setPassword('');
 
     } catch (error) {
       alert('Error al crear usuario');
     }
   };
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-black text-white flex items-center justify-center">
@@ -77,26 +118,38 @@ export default function CreateUserForm() {
           <input
             type="text"
             placeholder="Nombre"
-            value={form.name}
-            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            value={name}
+            onChange={(e) => setName(e.target.value )}
             className="w-full mb-3 p-2 rounded bg-gray-800 border border-gray-700"
           />
+
+          {errors.name && (
+              <p className="text-red-400 text-sm mb-2">{errors.name}</p>
+          )}
     
           <input
             type="email"
             placeholder="Email"
-            value={form.email}
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            value={email}
+            onChange={(e) => setEmail(e.target.value )}
             className="w-full mb-3 p-2 rounded bg-gray-800 border border-gray-700"
           />
+
+          {errors.email && (
+              <p className="text-red-400 text-sm mb-2">{errors.email}</p>
+          )}
     
           <input
             type="password"
             placeholder="Contraseña"
-            value={form.password}
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
+            value={password}
+            onChange={(e) => setPassword(e.target.value )}
             className="w-full mb-3 p-2 rounded bg-gray-800 border border-gray-700"
           />
+
+          {errors.password && (
+              <p className="text-red-400 text-sm mb-2">{errors.password}</p>
+          )}
     
           <button
             type="submit"

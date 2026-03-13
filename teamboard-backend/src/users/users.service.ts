@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from '@nestjs/common';
+import { ConflictException, ForbiddenException, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { UserRole, Users } from './users.entity';
 import { Repository } from 'typeorm';
@@ -43,6 +43,18 @@ export class UsersService {
                 company: { id: companyId },
             },
         });
+    }
+
+    async deleteUser(id: string, user: any) {
+        const targetUser = await this.usersRepository.findOne({
+            where: { id },
+        });
+
+        if (!targetUser) {
+            throw new NotFoundException('Usuario no encontrado');
+        }
+
+        return this.usersRepository.remove(targetUser);
     }
 }
  

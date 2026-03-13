@@ -3,6 +3,7 @@
 import AppLayout from "@/components/AppLayout";
 import { createTask, getProjects, getUsers } from "@/services/api";
 import { jwtDecode } from "jwt-decode";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -131,7 +132,7 @@ export default function AdminPage() {
             </form>
 
             <p className="pt-5">
-              <a href="/createuser">Crea o invita un usuario a tu empresa</a>
+              Crea o invita un usuario a tu <Link href="/createuser" className="text-blue-500 hover:text-blue-400">empresa</Link>
             </p>
 
           </div>

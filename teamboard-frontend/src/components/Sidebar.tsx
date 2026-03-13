@@ -1,16 +1,15 @@
 'use client'
 
-import { useRouter } from "next/navigation"
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
 import { jwtDecode } from "jwt-decode";
 import { useEffect, useState } from "react";
 
 export default function Sidebar() {
-    const router = useRouter();
     const { logout } = useAuth()
     const [role, setRole] = useState<string | null>(null);
     const [logged, setIsLogged] = useState(false);
+    const [mounted, setMounted] = useState(false);
 
     useEffect(() => {
       const token = localStorage.getItem('token');
@@ -19,8 +18,11 @@ export default function Sidebar() {
 
       const decode: any = jwtDecode(token);
       setRole(decode.role);
-      setIsLogged(true)
+      setIsLogged(true);
+      setMounted(true);
     }, []);
+
+    if (!mounted) return null;
 
     return (
         <aside className="w-64 h-screen bg-gray-900 text-white flex flex-col p-6">
