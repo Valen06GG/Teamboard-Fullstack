@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsUUID } from "class-validator";
+import { IsNotEmpty, IsString, IsUUID } from "class-validator";
 
 export class CreateTaskDto {
 
@@ -9,5 +9,5 @@ export class CreateTaskDto {
     projectId: string;
 
     @IsUUID()
-    assignedToId: string;
+    assignedToId?: string;
 }

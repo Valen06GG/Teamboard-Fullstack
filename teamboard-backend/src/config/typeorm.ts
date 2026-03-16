@@ -6,11 +6,7 @@ dotenvConfig({path: ".env"});
 
 const config = {
     type: 'postgres',
-    database: process.env.DB_NAME,
-    host: process.env.DB_HOST,
-    port: Number(process.env.DB_PORT),
-    username: process.env.DB_USERNAME,
-    password: process.env.DB_PASSWORD,
+    url: process.env.DATABASE_URL,
     autoLoadEntities: true,
     synchronize: true,
     logging: true,

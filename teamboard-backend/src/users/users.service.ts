@@ -4,6 +4,7 @@ import { UserRole, Users } from './users.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { Company } from 'src/companies/companies.entity';
+import { CreateUserDto } from './dto/crete-User.dto';
 
 @Injectable()
 export class UsersService {
@@ -13,7 +14,7 @@ export class UsersService {
     ) {}
 
     async createMember(
-      data: { name: string, email: string, password: string },
+      data: CreateUserDto,
       adminUser: any,
     ) {
         const existingUser = await this.usersRepository.findOne({
@@ -30,7 +31,7 @@ export class UsersService {
             name: data.name,
             email: data.email,
             password: hashedPassword,
-            role: UserRole.MEMBER,
+            role: data.role === 'admin' ? UserRole.ADMIN : UserRole.MEMBER,
             company: { id: adminUser.companyId } as Company,
         });
 

@@ -5,6 +5,7 @@ import { useAuth } from "@/context/AuthContext";
 import { getProjectsTasks } from "@/services/api";
 import { useParams } from "next/navigation"
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function ProjectPage() {
     const { id  } = useParams();
@@ -17,7 +18,7 @@ export default function ProjectPage() {
 
         getProjectsTasks(id as string, token)
           .then(setTasks)
-          .catch(() => alert('Error cargando las tasks'));
+          .catch(() => toast.error('Error cargando las tasks'));
     }, [token, id]);
 
     return (

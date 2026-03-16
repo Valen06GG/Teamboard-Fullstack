@@ -5,6 +5,7 @@ import { loginRequest } from "@/services/api";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 export default function Login() {
     const { login } = useAuth();
@@ -28,7 +29,7 @@ export default function Login() {
             window.location.href = '/dashboard';
 
         } catch (error) {
-            alert('Login fallido');
+            toast.error('Login fallido');
         }
     };
 
@@ -89,7 +90,7 @@ export default function Login() {
           <div>
             <label className="text-sm text-gray-400">Contraseña</label>
             <input
-              type="contraseña"
+              type="password"
               placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}

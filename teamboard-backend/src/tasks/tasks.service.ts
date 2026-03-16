@@ -28,7 +28,7 @@ export class TasksService {
         throw new ForbiddenException('Proyecto no encontrado en su empresa');
       }
 
-      let assignedUserId: string;
+      let assignedUserId: string | undefined;
 
       if (user.role === 'admin') {
         assignedUserId = dto.assignedToId;
@@ -38,7 +38,7 @@ export class TasksService {
 
       const task = this.taskRepository.create({
         title: dto.title,
-        assignedTo: { id: dto.assignedToId },
+        assignedTo: assignedUserId ? { id: dto.assignedToId } : undefined,
         project: { id: dto.projectId },
         company: { id: user.companyId },
     });

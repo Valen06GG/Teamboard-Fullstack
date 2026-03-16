@@ -1,6 +1,6 @@
 import { Company } from "src/companies/companies.entity";
 import { Task } from "src/tasks/tasks.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 export enum UserRole {
     ADMIN = 'admin',
@@ -24,14 +24,13 @@ export class Users {
     @Column({
         type: 'enum',
         enum: UserRole,
-        default: UserRole.MEMBER,
     })
     role: UserRole;
 
     @ManyToOne(() => Company, (company) => company.users)
     company: Company;
 
-    @ManyToOne(() => Task, (task) => task.assignedTo)
+    @OneToMany(() => Task, (task) => task.assignedTo)
     tasks: Task[];
 }
 

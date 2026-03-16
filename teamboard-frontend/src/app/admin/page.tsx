@@ -6,6 +6,7 @@ import { jwtDecode } from "jwt-decode";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function AdminPage() {
 
@@ -68,7 +69,7 @@ export default function AdminPage() {
             token
         );
 
-        alert('Task creada 🚀');
+        toast.success('Task creada 🚀');
 
         setTitle("");
         setProjectId("");

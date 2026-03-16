@@ -6,6 +6,7 @@ import { Roles } from 'src/common/decorators/roles.decorator';
 import { UserRole } from './users.entity';
 import { CurrentUser } from 'src/common/decorators/current-user.decorator';
 import { AuthGuard } from '@nestjs/passport';
+import { CreateUserDto } from './dto/crete-User.dto';
 
 @Controller('users')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -15,10 +16,10 @@ export class UsersController {
   @Post()
   @Roles(UserRole.ADMIN)
   createUser(
-    @Body() body: { name: string, email: string, password: string },
+    @Body() dto: CreateUserDto,
     @CurrentUser() user,
   ) {
-    return this.usersService.createMember(body, user);
+    return this.usersService.createMember(dto, user);
   }
 
   @UseGuards(AuthGuard('jwt'))

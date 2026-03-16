@@ -6,6 +6,7 @@ import { getProjects } from "@/services/api";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import CreateProjectForm from "@/components/CreateProjectForm";
+import toast from "react-hot-toast";
 
 export default function ProjectsPage() {
     const { token } = useAuth();
@@ -16,7 +17,7 @@ export default function ProjectsPage() {
 
         getProjects(token)
           .then(setProjects)
-          .catch(() => alert('Error cargando proyectos'));
+          .catch(() => toast.error('Error cargando proyectos'));
     }, [token]);
 
     return (

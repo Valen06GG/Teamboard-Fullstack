@@ -8,6 +8,7 @@ import { completedTask } from "@/services/api";
 import AppLayout from "@/components/AppLayout";
 import { motion } from "framer-motion";
 import { jwtDecode } from "jwt-decode";
+import toast from "react-hot-toast";
 
 export default function Dashboard() {
     const { token, logout } = useAuth();
@@ -23,7 +24,7 @@ export default function Dashboard() {
         } else {
             getTasks(token)
               .then(setTasks)
-              .catch(() => alert('Error cargando tareas'));
+              .catch(() => toast.error('Error cargando tareas'));
         }
 
         const decode: any = jwtDecode(token);
@@ -42,7 +43,7 @@ export default function Dashboard() {
             const updateTask = tasks.map((task) => task.id === taskId ? { ...task, completed: true }: task);
             setTasks(updateTask);
         } catch (error) {
-            alert('No podes completar la task');
+            toast.error('No podes completar la task');
         }
     }
 

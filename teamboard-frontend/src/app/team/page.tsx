@@ -6,6 +6,7 @@ import { deleteUser, getUsers } from "@/services/api";
 import { jwtDecode } from "jwt-decode";
 import Link from "next/link";
 import { useEffect, useId, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function TeamPage() {
     const { token } = useAuth();
@@ -18,7 +19,7 @@ export default function TeamPage() {
 
     getUsers(token)
       .then(setUsers)
-      .catch(() => alert("Error al cargar usuarios"));
+      .catch(() => toast.error("Error al cargar usuarios"));
 
     const decoded: any = jwtDecode(token);
     setRole(decoded.role);
@@ -47,7 +48,7 @@ export default function TeamPage() {
 
           setUsers(users.filter((u) => u.id !== userId));
         } catch (error) {
-          alert('Error eliminando usuario');
+          toast.error('Error eliminando usuario');
         }
     }
 

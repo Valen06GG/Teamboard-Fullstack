@@ -3,6 +3,7 @@ import { createProject } from "@/services/api";
 import { jwtDecode } from "jwt-decode";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function CreateProjectForm() {
     const { token } = useAuth();
@@ -47,12 +48,12 @@ export default function CreateProjectForm() {
                 description
             });
 
-            alert('Proyecto creado');
+            toast.success('Proyecto creado');
 
             setName('');
             setDescription('');
         } catch (error) {
-            alert('Error al crear el proyecto');
+            toast.error('Error al crear el proyecto');
         }
     };
     

@@ -5,6 +5,7 @@ import { createUsers } from "@/services/api";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { jwtDecode } from "jwt-decode";
+import toast from "react-hot-toast";
 
 export default function CreateUserForm() {
 
@@ -15,10 +16,12 @@ export default function CreateUserForm() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
   const [errors, setErrors] = useState({
   name: "",
   email: "",
   password: "",
+  role: ""
   });
 
   useEffect(() => {
@@ -46,6 +49,7 @@ export default function CreateUserForm() {
         name: "",
         email: "",
         password: "",
+        role: "",
       };
     
       let isValid = true;
@@ -70,6 +74,11 @@ export default function CreateUserForm() {
         newErrors.password = "La contraseña debe tener al menos 6 caracteres";
         isValid = false;
       }
+
+      if (!role.trim()) {
+        newErrors.role = 'El rol es obligatorio';
+        isValid = false;
+      }
     
       setErrors(newErrors);
     
@@ -89,16 +98,19 @@ export default function CreateUserForm() {
         name,
         email,
         password,
+        role,
       });
 
-      alert('Usuario creado con éxito');
+      toast.success('Usuario creado con éxito');
+      window.location.href = '/dashboard'
 
       setName('');
       setEmail('');
       setPassword('');
+      setRole('');  
 
     } catch (error) {
-      alert('Error al crear usuario');
+      toast.error('Error al crear usuario');
     }
   };
 
@@ -150,10 +162,24 @@ export default function CreateUserForm() {
           {errors.password && (
               <p className="text-red-400 text-sm mb-2">{errors.password}</p>
           )}
+
+          <select
+            value={role}
+            onChange={(e) => setRole(e.target.value)}
+            className="w-full mb-3 p-2 rounded bg-gray-800 border border-gray-700"
+          >
+            <option value="">Seleccionar rol</option>
+            <option value="admin">Admin (puede gestionar el equipo)</option>
+            <option value="member">Member (solo puede trabajar en proyectos)</option>
+          </select>
+
+           {errors.role && (
+              <p className="text-red-400 text-sm mb-2">{errors.role}</p>
+          )}
     
           <button
             type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded-lg"
+            className="w-full bg-blue-600 hover:bg-blue-700 py-2 rounded-lg cursor-pointer"
           >
             Crear usuario
           </button>

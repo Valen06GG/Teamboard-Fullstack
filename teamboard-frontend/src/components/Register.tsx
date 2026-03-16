@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
 import { register } from "@/services/api";
+import toast from "react-hot-toast";
 
 export default function Register() {
     const router = useRouter();
@@ -12,12 +13,13 @@ export default function Register() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [companyName, setCompanyName] = useState('');
+    const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
-      name: "",
-      email: "",
-      password: "",
-      companyName: "",
-    });
+        name: "",
+        email: "",
+        password: "",
+        companyName: "",
+    })
     const [errors, setErrors] = useState({
         name: "",
         email: "",
@@ -25,7 +27,12 @@ export default function Register() {
         companyName: "",
     })
 
-    const [loading, setLoading] = useState(false)
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setForm({
+        ...form,
+        [e.target.name]: e.target.value
+      });
+    };
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault()
@@ -41,14 +48,13 @@ export default function Register() {
 
         } catch (error) {
             console.error(error);
-            alert('Error al crear cuenta');
+            toast.error('Error al crear cuenta');
         } finally {
           setLoading(false);
         }
     };
 
     const validate = () => {
-
       let newErrors = {
         name: "",
         email: "",
@@ -91,7 +97,6 @@ export default function Register() {
       }
     
       setErrors(newErrors);
-    
       return isValid;
     };
 
@@ -105,14 +110,14 @@ export default function Register() {
         </h1>
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-
+          
+          <label className="text-sm text-gray-400">Nombre Completo</label>
           <input
             type="text"
             name="name"
             placeholder="Nombre completo"
             value={form.name}
-            onChange={(e) => setName(e.target.value)}
-            required
+            onChange={handleChange}
             className="bg-gray-800 border border-gray-700 rounded-lg p-3 focus:outline-none focus:border-blue-500"
           />
 
@@ -120,13 +125,13 @@ export default function Register() {
             <p className="text-red-400 text-sm mb-3">{errors.name}</p>
           )}
 
+          <label className="text-sm text-gray-400">Email</label>
           <input
             type="email"
             name="email"
             placeholder="Email"
             value={form.email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
+            onChange={handleChange}
             className="bg-gray-800 border border-gray-700 rounded-lg p-3 focus:outline-none focus:border-blue-500"
           />
 
@@ -134,13 +139,13 @@ export default function Register() {
             <p className="text-red-400 text-sm mb-3">{errors.email}</p>
           )}
 
+          <label className="text-sm text-gray-400">contraseña</label>
           <input
             type="password"
             name="password"
             placeholder="Contraseña"
             value={form.password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
+            onChange={handleChange}
             className="bg-gray-800 border border-gray-700 rounded-lg p-3 focus:outline-none focus:border-blue-500"
           />
 
@@ -148,13 +153,13 @@ export default function Register() {
             <p className="text-red-400 text-sm mb-3">{errors.password}</p>
           )}
 
+          <label className="text-sm text-gray-400">Nombre de Empresa</label>
           <input
             type="text"
             name="companyName"
             placeholder="Nombre de empresa"
             value={form.companyName}
-            onChange={(e) => setCompanyName(e.target.value)}
-            required
+            onChange={handleChange}
             className="bg-gray-800 border border-gray-700 rounded-lg p-3 focus:outline-none focus:border-blue-500"
           />
 

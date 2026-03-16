@@ -59,11 +59,14 @@ export async function createTask(data: any, token: string) {
         body: JSON.stringify(data),
     });
 
+    const result = await response.json();
+
     if (!response.ok) {
-        throw new Error('No se pudo crear la task');
+        console.log("ERROR BACKEND:", result);
+        throw new Error(result.message || 'No se pudo crear la task');
     }
 
-    return response.json();
+    return result;
 }
 
 export async function getProjects(token: string) {
@@ -157,7 +160,7 @@ export async function deleteUser(token: string, userId: string) {
     return res.json();
 }
 
-export async function register(data: {name: string, email: string, password: string, companyName: string;}) {
+export async function register(data: any) {
   const res = await fetch("http://localhost:3001/auth/register", {
     method: "POST",
     headers: {
@@ -165,6 +168,7 @@ export async function register(data: {name: string, email: string, password: str
     },
     body: JSON.stringify(data),
   });
+
 
   if (!res.ok) {
     throw new Error("Error al registrar usuario");
