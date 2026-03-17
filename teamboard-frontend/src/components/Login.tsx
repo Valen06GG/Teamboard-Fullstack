@@ -26,6 +26,7 @@ export default function Login() {
         try {
             const data = await loginRequest(email, password);
             login(data.access_token);
+            toast.success('Te logueaste exitosamente!!!');
             window.location.href = '/dashboard';
 
         } catch (error) {

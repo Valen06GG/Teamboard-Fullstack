@@ -43,6 +43,7 @@ export default function Register() {
           setLoading(true);
 
           await register(form);
+          toast.success('Cuenta creada exitosamente!!!');
 
           router.push('/login');
 
