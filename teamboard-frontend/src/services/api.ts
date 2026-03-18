@@ -17,7 +17,7 @@ export async function loginRequest(email: string, password: string) {
 }
 
 export async function getTasks(token: string) {
-    const response = await fetch('http://localhost:3001/tasks', {
+    const response = await fetch(`${API_URL}/tasks`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -31,7 +31,7 @@ export async function getTasks(token: string) {
 }
 
 export async function completedTask(taskId: string, token: string) {
-    const response = await fetch(`http://localhost:3001/tasks/${taskId}/status`, {
+    const response = await fetch(`${API_URL}/tasks/${taskId}/status`, {
         method: "PATCH",
         headers: {
             "Content-Type": "application/json",
@@ -50,7 +50,7 @@ export async function completedTask(taskId: string, token: string) {
 }
 
 export async function createTask(data: any, token: string) {
-    const response = await fetch('http://localhost:3001/tasks', {
+    const response = await fetch(`${API_URL}/tasks`, {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
@@ -70,7 +70,7 @@ export async function createTask(data: any, token: string) {
 }
 
 export async function getProjects(token: string) {
-    const response = await fetch('http://localhost:3001/projects', {
+    const response = await fetch(`${API_URL}/projects`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -84,7 +84,7 @@ export async function getProjects(token: string) {
 }
 
 export async function getUsers(token: string) {
-  const response = await fetch("http://localhost:3001/users", {
+  const response = await fetch(`${API_URL}/users`, {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -98,7 +98,7 @@ export async function getUsers(token: string) {
 }
 
 export async function getProjectsTasks(projectId: string, token: string) {
-    const response = await fetch(`http://localhost:3001/projects/${projectId}/tasks`, {
+    const response = await fetch(`${API_URL}/projects/${projectId}/tasks`, {
         headers: {
             Authorization: `Bearer ${token}`,
         },
@@ -112,7 +112,7 @@ export async function getProjectsTasks(projectId: string, token: string) {
 }
 
 export async function createUsers(token: string, userData: any) {
-  const response = await fetch("http://localhost:3001/users", {
+  const response = await fetch(`${API_URL}/users`, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
@@ -129,7 +129,7 @@ export async function createUsers(token: string, userData: any) {
 }
 
 export async function createProject(token: string, data: { name: string, description: string }) {
-  const response = await fetch("http://localhost:3001/projects", {
+  const response = await fetch(`${API_URL}/projects`, {
     method: 'POST',
     headers: {
         'Content-Type': 'application/json',
@@ -146,7 +146,7 @@ export async function createProject(token: string, data: { name: string, descrip
 }
 
 export async function deleteUser(token: string, userId: string) {
-    const res = await fetch(`http://localhost:3001/users/${userId}`, {
+    const res = await fetch(`${API_URL}/users/${userId}`, {
         method: 'DELETE',
         headers: {
             Authorization: `Bearer ${token}`
@@ -161,7 +161,7 @@ export async function deleteUser(token: string, userId: string) {
 }
 
 export async function register(data: any) {
-  const res = await fetch("http://localhost:3001/auth/register", {
+  const res = await fetch(`${API_URL}/auth/register`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
