@@ -18,7 +18,7 @@ export default function Home() {
               Diseñado para equipos modernos que buscan rapidez y sencillez.
             </p>
     
-            <div className="flex gap-6"> 
+            <div className="flex gap-6">  
     
               <Link
                 href="/register"
