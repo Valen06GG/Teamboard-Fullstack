@@ -11,7 +11,10 @@ async function bootstrap() {
   );
 
   app.enableCors({
-    origin: '*'
+    origin: [
+      'http://localhost:3000',
+      'https://teamboard-frontend-eta.vercel.app'],
+    credentials: true,
   });
 
   await app.listen(process.env.PORT ?? 3001);
