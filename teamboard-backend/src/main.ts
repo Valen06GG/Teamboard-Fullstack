@@ -12,7 +12,7 @@ async function bootstrap() {
 
   app.enableCors({
     origin: [
-      'https://teamboard-frontend-eta.vercel.app'],
+      'https://teamboard-frontend-o5wvb5bcy-valentins-projects-0e36b93a.vercel.app'],
     credentials: true,
   });
 
